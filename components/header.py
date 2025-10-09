@@ -1,6 +1,4 @@
-from htmy import html
+from htmy import Snippet
 
-def header():
-    return html.nav(
-        html.h1("LOGO"),
-    )
+def header() -> Snippet:
+    return Snippet("templates/partial/_header.html")
