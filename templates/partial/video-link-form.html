@@ -1,0 +1,12 @@
+<div id="main-div" class="flex w-full max-w-xs flex-col gap-1 text-neutral-600 dark:text-neutral-400">
+    <label for="textInputDefault" class="w-fit pl-0.5 text-sm">input text here</label>
+    <input id="video_link" name="video_link" type="link" class="w-full rounded-none bg-neutral-100 px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:bg-neutral-800/50 dark:focus-visible:outline-white" name="name" placeholder="Enter text here" />
+    <button 
+    type="submit"
+    class="whitespace-nowrap rounded-none bg-black border border-black px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-white dark:border-white dark:text-black dark:focus-visible:outline-white"
+    hx-post="/video-show"
+    hx-target="#main-div"
+    hx-include="#video_link" >
+        submit
+    </button>
+</div>

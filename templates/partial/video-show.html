@@ -1,0 +1,32 @@
+<div x-data="{ currentTime: 0, pausedTime: 0}">
+        
+        <h3>
+           <input type="hidden" id="video_link" value={{ video_link }}/>
+            {{ video_info.title }}
+        </h3>
+        
+        <video 
+        x-on:pause="currentTime = $event.target.currentTime; pausedTime = $event.target.currentTime"
+        x-on:timeupdate="currentTime = $event.target.currentTime"
+        controls>
+            <source src={{ video_info.url }}>
+        </video>
+
+
+        <p>
+            <h3>currentTime</h3>
+            <span x-text="Math.floor(currentTime)">s</span>
+        </p>
+        <p>
+            <h3>pausedTime</h3>
+            <span x-text="pausedTime">s</span>
+        </p>
+
+        <p>
+            <button
+            
+            >
+
+            </button>
+        </p>
+</div>
