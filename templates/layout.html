@@ -7,8 +7,6 @@
     
     <!--TailwindsCSS-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!--daisyUI-->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet">
     <!--HTMX-->
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js" integrity="sha384-ZBXiYtYQ6hJ2Y0ZNoYuI+Nq5MqWBr+chMrS/RkXpNzQCApHEhOt2aY8EJgqwHLkJ" crossorigin="anonymous"></script>
     <!--AlpineJS-->
@@ -22,7 +20,7 @@
 
   </head>
 
-  <body>
+  <body class="flex flex-col bg-zinc-700 h-screen">
     <header>
       {% include '/partial/_header.html' %}
     </header>
@@ -31,7 +29,7 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="text-center text-xs">
       {% include '/partial/_footer.html'%}
     </footer>
 

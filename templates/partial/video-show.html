@@ -1,32 +1,74 @@
-<div x-data="{ currentTime: 0, pausedTime: 0}">
+<div x-data="{
+    currentTime: 0,
+    startTime: '00:00:00',
+    endTime: '00:00:00',
+
+    formatterTime(time) {
+        const h = Math.floor(time / 3600);
+        const m = Math.floor((time % 3600) / 60);
+        const s = Math.floor(time % 60);
+
+        const pad = (n) => n.toString().padStart(2, '0');
+
+        return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+}"
+>
         
         <h3>
-           <input type="hidden" id="video_link" value={{ video_link }}/>
+           <input type="hidden" id="video_link" name="video_link" value={{ video_link }}/>
             {{ video_info.title }}
         </h3>
         
-        <video 
-        x-on:pause="currentTime = $event.target.currentTime; pausedTime = $event.target.currentTime"
-        x-on:timeupdate="currentTime = $event.target.currentTime"
-        controls>
+        <video
+        controls
+        @loadedmetadata="endTime = formatterTime($el.duration)"
+        @timeupdate="currentTime = formatterTime($el.currentTime)"
+        >
             <source src={{ video_info.url }}>
         </video>
+        <div class="text-center my-4">
+            <h3>video Time</h3>
+            <h3 x-text="currentTime"></h3>
+        </div>
 
+        <div class="grid grid-cols-2">
 
-        <p>
-            <h3>currentTime</h3>
-            <span x-text="Math.floor(currentTime)">s</span>
-        </p>
-        <p>
-            <h3>pausedTime</h3>
-            <span x-text="pausedTime">s</span>
-        </p>
+            <div class="flex flex-col justify-center text-center my-4">
+                <button
+                @click="startTime = currentTime"
+                type="button"
+                class="whitespace-nowrap rounded-none bg-sky-500 border border-sky-500 px-4 py-2 text-sm font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-sky-500 dark:border-sky-500 dark:text-white dark:focus-visible:outline-sky-500"
+                >
+                Set to Start Time
+                </button>
+
+                <label>Start Time</label>
+                <input type="text" x-model="startTime" name="start-time" class="w-[8ch]" />
+            </div>
+        
+        <div class=" flex flex-col text-center my-4">
+            <button
+                @click="endTime = currentTime" 
+                class="whitespace-nowrap rounded-none bg-red-500 border border-red-500 px-4 py-2 text-sm font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-red-500 dark:border-red-500 dark:text-white dark:focus-visible:outline-red-500"
+                >
+                Set to End Time
+            </button>
+
+            <label>End Time</label>
+            <input type="text" x-model="endTime" name="end-time" class="w-[8ch]" />
+        </div>
+    </div>
 
         <p>
             <button
-            
+            type="submit"
+            class="whitespace-nowrap rounded-none bg-black border border-black px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-white dark:border-white dark:text-black dark:focus-visible:outline-white"
+            hx-post="/video-proccess"
+            hx-target="#main-div"
+            hx-include="#video_link"
             >
-
+            download video
             </button>
         </p>
 </div>
